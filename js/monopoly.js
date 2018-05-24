@@ -9,7 +9,7 @@ Monopoly.init = function(){
         $(window).bind("resize",Monopoly.adjustBoardSize);
         Monopoly.initDice();
         Monopoly.initPopups();
-        Monopoly.start();        
+        Monopoly.start();
     });
 };
 
@@ -320,7 +320,6 @@ Monopoly.isValidInput = function(validate,value){
             }
             //TODO: remove when done
             console.log("the val " + value)
-            isValid = true;
             break;
     }
 
@@ -351,7 +350,7 @@ Monopoly.closePopup = function(){
 };
 
 Monopoly.playSound = function(sound){
-    var snd = new Audio("./sounds/" + sound + ".wav"); 
+    var snd = new Audio("./sounds/" + sound + ".wav");
     snd.play();
 }
 
