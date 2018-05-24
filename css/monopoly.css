@@ -226,3 +226,8 @@ body{
 .removed {
   display: none;
 }
+
+.jailed {
+  background-image: url(../images/sad-face.jpeg);
+  background-size: contain;
+}

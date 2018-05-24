@@ -45,7 +45,7 @@ Monopoly.updatePlayersMoney = function(player,amount){
     playersMoney -= amount;
     if (playersMoney < 0 ){
         Monopoly.handleBroke(player)
-        alert("you are broke!")
+        // alert("you are broke!")
     }
     player.attr("data-money",playersMoney);
     player.attr("title",player.attr("id") + ": $" + playersMoney);
@@ -271,10 +271,6 @@ Monopoly.handleBuy = function(player,propertyCell,propertyCost){
     }
 };
 
-
-
-
-
 Monopoly.handleAction = function(player,action,amount){
     console.log(action)
     switch(action){
@@ -292,10 +288,6 @@ Monopoly.handleAction = function(player,action,amount){
     };
     Monopoly.closePopup();
 };
-
-
-
-
 
 Monopoly.createPlayers = function(numOfPlayers){
     var startCell = $(".go");
@@ -321,12 +313,10 @@ Monopoly.getNextCell = function(cell){
     return $(".cell#cell" + nextCellId);
 };
 
-
 Monopoly.handlePassedGo = function(){
     var player = Monopoly.getCurrentPlayer();
     Monopoly.updatePlayersMoney(player,Monopoly.moneyAtStart/10);
 };
-
 
 Monopoly.isValidInput = function(validate,value){
     var isValid = false;
@@ -354,7 +344,6 @@ Monopoly.showErrorMsg = function(){
     },2000);
     Monopoly.playSound('boo')
 };
-
 
 Monopoly.adjustBoardSize = function(){
     var gameBoard = $(".board");
@@ -387,7 +376,7 @@ Monopoly.handleBroke = () => {
     playerProperties[i].removeAttribute('rent')
     playerProperties[i].classList.remove(player.attr('id'))
   }
-  player.classList.add('removed')
+  player[0].classList.add('removed')
 }
 
 Monopoly.init();
