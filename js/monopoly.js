@@ -1,6 +1,6 @@
 var Monopoly = {};
 Monopoly.allowRoll = true;
-Monopoly.moneyAtStart = 1000;
+Monopoly.moneyAtStart = 0;
 Monopoly.doubleCounter = 0;
 
 Monopoly.init = function(){
@@ -352,6 +352,7 @@ Monopoly.showErrorMsg = function(){
     setTimeout(function(){
             $(".popup-page .invalid-error").fadeTo(500,0);
     },2000);
+    Monopoly.playSound('boo')
 };
 
 
