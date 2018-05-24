@@ -10,7 +10,7 @@ body{
     margin:auto;
     margin-top:10px;
     margin-bottom:10px;
-    
+
 }
 
 .board .cell{
@@ -44,7 +44,7 @@ body{
     height: 15.3%;
     width: 15.3%;
     background-size: contain;
-    background-repeat: no-repeat;  
+    background-repeat: no-repeat;
 }
 
 .board .game.cell.go{
@@ -147,7 +147,7 @@ body{
 .board .game.cell .content{
     height:80%;
     width:100%;
-    
+
 }
 
 .board .cell:not(.top):not(.bottom) .title{
@@ -221,4 +221,8 @@ body{
 
 .dice-dot.right{
     margin-left:36%;
+}
+
+.removed {
+  display: none;
 }

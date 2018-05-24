@@ -44,6 +44,7 @@ Monopoly.updatePlayersMoney = function(player,amount){
     var playersMoney = parseInt(player.attr("data-money"));
     playersMoney -= amount;
     if (playersMoney < 0 ){
+        Monopoly.handleBroke(player)
         alert("you are broke!")
     }
     player.attr("data-money",playersMoney);
@@ -106,6 +107,9 @@ Monopoly.setNextPlayerTurn = function(){
     var nextPlayerId = playerId + 1;
     if (nextPlayerId > $(".player").length){
         nextPlayerId = 1;
+    }
+    while ($('.player#player' + nextPlayerId).hasClass('removed')) {
+      nextPlayerId++
     }
     currentPlayerTurn.removeClass("current-turn");
     var nextPlayer = $(".player#player" + nextPlayerId);
@@ -372,5 +376,17 @@ Monopoly.showPopup = function(popupId){
     $(".popup-lightbox .popup-page#" + popupId).show();
     $(".popup-lightbox").fadeIn();
 };
+
+Monopoly.handleBroke = () => {
+  const player = Monopoly.getCurrentPlayer()
+  const playerProperties = document.getElementsByClassName(player.attr('id'))
+  for (let i = playerProperties.length - 1; i >= 0; i--) {
+    playerProperties[i].classList.add('available')
+    playerProperties[i].removeAttribute('data-owner')
+    playerProperties[i].removeAttribute('rent')
+    playerProperties[i].classList.remove(player.attr('id'))
+  }
+  player.classList.add('removed')
+}
 
 Monopoly.init();
