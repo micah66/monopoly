@@ -1,6 +1,6 @@
 var Monopoly = {};
 Monopoly.allowRoll = true;
-Monopoly.moneyAtStart = 0;
+Monopoly.moneyAtStart = 500;
 Monopoly.doubleCounter = 0;
 
 Monopoly.init = function(){
