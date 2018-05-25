@@ -45,7 +45,6 @@ Monopoly.updatePlayersMoney = function(player,amount){
     playersMoney -= amount;
     if (playersMoney < 0 ){
         Monopoly.handleBroke(player)
-        // alert("you are broke!")
     }
     player.attr("data-money",playersMoney);
     player.attr("title",player.attr("id") + ": $" + playersMoney);
@@ -157,7 +156,6 @@ Monopoly.handlePayRent = function(player,propertyCell){
     popup.find("#amount-placeholder").text(currentRent);
     popup.find("button").unbind("click").bind("click",function(){
         var properyOwner = $(".player#"+ properyOwnerId);
-        console.log(properyOwnerId)
         Monopoly.updatePlayersMoney(player,currentRent);
         Monopoly.updatePlayersMoney(properyOwner,-1*currentRent);
         Monopoly.closeAndNextTurn();
@@ -188,7 +186,6 @@ Monopoly.handleChanceCard = function(player){
         var currentBtn = $(this);
         var action = currentBtn.attr("data-action");
         var amount = currentBtn.attr("data-amount");
-        console.log("testing the action and amount " + action + " " + amount)
         Monopoly.handleAction(player,action,amount);
     });
     Monopoly.showPopup("chance");
@@ -207,7 +204,6 @@ Monopoly.handleCommunityCard = function(player){
     var currentBtn = $(this);
     var action = currentBtn.attr("data-action");
     var amount = currentBtn.attr("data-amount");
-    console.log("testing the action and amount " + action + " " + amount)
     Monopoly.handleAction(player,action,amount);
   });
   Monopoly.showPopup('community')
@@ -276,10 +272,8 @@ Monopoly.handleBuy = function(player,propertyCell,propertyCost){
 };
 
 Monopoly.handleAction = function(player,action,amount){
-    console.log(action)
     switch(action){
         case "move":
-       	    console.log(amount)
             Monopoly.movePlayer(player,amount);
              break;
         case "pay":
@@ -310,7 +304,6 @@ Monopoly.getNextCell = function(cell){
     var currentCellId = parseInt(cell.attr("id").replace("cell",""));
     var nextCellId = currentCellId + 1
     if (nextCellId > 40){
-        console.log("YAY")
         Monopoly.handlePassedGo();
         nextCellId = 1;
     }
@@ -329,8 +322,6 @@ Monopoly.isValidInput = function(validate,value){
             if(value > 1 && value <= 4){
                 isValid = true;
             }
-            //TODO: remove when done
-            console.log("the val " + value)
             break;
     }
 
