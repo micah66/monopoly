@@ -61,6 +61,8 @@ Monopoly.rollDice = function(){
     $(".dice#dice2").attr("data-num",result2).find(".dice-dot.num" + result2).css("opacity",1);
     if (result1 == result2){
         Monopoly.doubleCounter++;
+    } else {
+      Monopoly.doubleCounter = 0
     }
     var currentPlayer = Monopoly.getCurrentPlayer();
     Monopoly.handleAction(currentPlayer,"move",result1 + result2);
@@ -96,34 +98,36 @@ Monopoly.handleTurn = function(){
         Monopoly.handleChanceCard(player);
     }else if(playerCell.is(".community")){
         Monopoly.handleCommunityCard(player);
-    }else{
+    }else {
         Monopoly.setNextPlayerTurn();
     }
 }
 
 Monopoly.setNextPlayerTurn = function(){
-    var currentPlayerTurn = Monopoly.getCurrentPlayer();
-    var playerId = parseInt(currentPlayerTurn.attr("id").replace("player",""));
-    var nextPlayerId = playerId + 1;
-    if (nextPlayerId > $(".player").length){
+    if (Monopoly.doubleCounter === 0) {
+      var currentPlayerTurn = Monopoly.getCurrentPlayer();
+      var playerId = parseInt(currentPlayerTurn.attr("id").replace("player",""));
+      var nextPlayerId = playerId + 1;
+      if (nextPlayerId > $(".player").length){
         nextPlayerId = 1;
-    }
-    while ($('.player#player' + nextPlayerId).hasClass('removed')) {
-      nextPlayerId++
-    }
-    currentPlayerTurn.removeClass("current-turn");
-    var nextPlayer = $(".player#player" + nextPlayerId);
-    nextPlayer.addClass("current-turn");
-    if (nextPlayer.is(".jailed")){
+      }
+      while ($('.player#player' + nextPlayerId).is('removed')) {
+        nextPlayerId++
+      }
+      currentPlayerTurn.removeClass("current-turn");
+      var nextPlayer = $(".player#player" + nextPlayerId);
+      nextPlayer.addClass("current-turn");
+      if (nextPlayer.is(".jailed")){
         var currentJailTime = parseInt(nextPlayer.attr("data-jail-time"));
         currentJailTime++;
         nextPlayer.attr("data-jail-time",currentJailTime);
         if (currentJailTime > 3){
-            nextPlayer.removeClass("jailed");
-            nextPlayer.removeAttr("data-jail-time");
+          nextPlayer.removeClass("jailed");
+          nextPlayer.removeAttr("data-jail-time");
         }
         Monopoly.setNextPlayerTurn();
         return;
+      }
     }
     Monopoly.closePopup();
     Monopoly.allowRoll = true;
