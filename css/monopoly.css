@@ -230,4 +230,14 @@ body{
 .jailed {
   background-image: url(../images/sad-face.jpeg);
   background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.player1  #player1,
+.player2  #player2,
+.player3  #player3,
+.player4  #player4 {
+  background-image: url(../images/happy-face.jpeg);
+  background-size: contain;
+  background-repeat: no-repeat;
 }
