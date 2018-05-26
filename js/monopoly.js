@@ -43,6 +43,7 @@ Monopoly.getPlayersMoney = function(player){
 Monopoly.updatePlayersMoney = function(player,amount){
     var playersMoney = parseInt(player.attr("data-money"));
     playersMoney -= amount;
+    // Check if player is bankrupt
     if (playersMoney < 0 ){
       Monopoly.handleBroke(player)
     }
@@ -58,6 +59,7 @@ Monopoly.rollDice = function(){
     $(".dice").find(".dice-dot").css("opacity",0);
     $(".dice#dice1").attr("data-num",result1).find(".dice-dot.num" + result1).css("opacity",1);
     $(".dice#dice2").attr("data-num",result2).find(".dice-dot.num" + result2).css("opacity",1);
+    //Check for doubles, otherwise reset doubles counter
     if (result1 == result2){
         Monopoly.doubleCounter++;
     } else {
@@ -110,6 +112,7 @@ Monopoly.setNextPlayerTurn = function(){
       if (nextPlayerId > $(".player").length){
         nextPlayerId = 1;
       }
+      // Skip over players who have been removed from the game
       while ($('.player#player' + nextPlayerId).hasClass('removed')) {
         nextPlayerId++
         if (nextPlayerId > $(".player").length){
@@ -220,6 +223,7 @@ Monopoly.sendToJail = function(player){
     player.attr("data-jail-time",1);
     $(".corner.game.cell.in-jail").append(player);
     Monopoly.playSound("woopwoop");
+    // Ensure player does not get to roll again on doubles result which sends him to jail
     Monopoly.doubleCounter = 0
     Monopoly.setNextPlayerTurn();
     Monopoly.closePopup();
@@ -370,6 +374,7 @@ Monopoly.showPopup = function(popupId){
 
 Monopoly.handleBroke = () => {
   const player = Monopoly.getCurrentPlayer()
+  // Return all the properties which the bankrupt player has purchased
   const playerProperties = document.getElementsByClassName(player.attr('id'))
   for (let i = playerProperties.length - 1; i >= 0; i--) {
     playerProperties[i].classList.add('available')
