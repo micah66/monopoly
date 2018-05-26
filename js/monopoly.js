@@ -123,7 +123,7 @@ Monopoly.setNextPlayerTurn = function(){
         var currentJailTime = parseInt(nextPlayer.attr("data-jail-time"));
         currentJailTime++;
         nextPlayer.attr("data-jail-time",currentJailTime);
-        if (currentJailTime > 3){
+        if (currentJailTime >= 3){
           nextPlayer.removeClass("jailed");
           nextPlayer.removeAttr("data-jail-time");
         }
@@ -220,6 +220,7 @@ Monopoly.sendToJail = function(player){
     player.attr("data-jail-time",1);
     $(".corner.game.cell.in-jail").append(player);
     Monopoly.playSound("woopwoop");
+    Monopoly.doubleCounter = 0
     Monopoly.setNextPlayerTurn();
     Monopoly.closePopup();
 };
