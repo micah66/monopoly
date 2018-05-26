@@ -44,7 +44,7 @@ Monopoly.updatePlayersMoney = function(player,amount){
     var playersMoney = parseInt(player.attr("data-money"));
     playersMoney -= amount;
     if (playersMoney < 0 ){
-        Monopoly.handleBroke(player)
+      Monopoly.handleBroke(player)
     }
     player.attr("data-money",playersMoney);
     player.attr("title",player.attr("id") + ": $" + playersMoney);
@@ -110,8 +110,11 @@ Monopoly.setNextPlayerTurn = function(){
       if (nextPlayerId > $(".player").length){
         nextPlayerId = 1;
       }
-      while ($('.player#player' + nextPlayerId).is('removed')) {
+      while ($('.player#player' + nextPlayerId).hasClass('removed')) {
         nextPlayerId++
+        if (nextPlayerId > $(".player").length){
+          nextPlayerId = 1;
+        }
       }
       currentPlayerTurn.removeClass("current-turn");
       var nextPlayer = $(".player#player" + nextPlayerId);
@@ -165,11 +168,13 @@ Monopoly.handlePayRent = function(player,propertyCell){
 
 
 Monopoly.handleGoToJail = function(player){
+    Monopoly.doubleCounter = 0
     var popup = Monopoly.getPopup("jail");
     popup.find("button").unbind("click").bind("click",function(){
         Monopoly.handleAction(player,"jail");
     });
     Monopoly.showPopup("jail");
+
 };
 
 
@@ -372,6 +377,9 @@ Monopoly.handleBroke = () => {
     playerProperties[i].classList.remove(player.attr('id'))
   }
   player[0].classList.add('removed')
+  const popup = Monopoly.getPopup('bankrupt')
+  popup.find('button').unbind('click').bind('click', Monopoly.closeAndNextTurn)
+  Monopoly.showPopup('bankrupt')
 }
 
 Monopoly.init();
